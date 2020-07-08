@@ -50,6 +50,7 @@ export class CreateProfileComponent implements OnInit {
     this.http.getInfo().subscribe(
       data=> {
         for(let temp of data){
+          console.log(temp)
           this.allDet[temp.id]={name: temp.name, email: temp.email, joinedAt:temp.createdAt,   deptId: temp.deptId, image1: temp.image1, image2: temp.image2, image3: temp.image3};
           this.names.push(temp.name);
           this.nameToId[temp.name]= temp.id;
@@ -83,7 +84,7 @@ export class CreateProfileComponent implements OnInit {
     this.modalService.open(content, { size: 'lg' });
   }
 
-  submits(form: FormGroup): void{
+  submits(form: FormGroup): void{ 
       this.names.push(form.value.name);
       this.nameToId[form.value.name]= ++this.iter;
       // this.sanitization.bypassSecurityTrustStyle
