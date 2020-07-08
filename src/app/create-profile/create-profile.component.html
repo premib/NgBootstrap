@@ -1,0 +1,107 @@
+<div id="creation-main" style="height: 100%;">
+
+    <div class="container-fluid  mt-5 ">
+        <div class="offset-3">
+
+            <form  [formGroup]="userForm" (ngSubmit)= "submits(userForm)">
+                <div class="form-group row">
+                    <label for="name" class="col-sm-2">Name: </label>  
+                    <input id="textInp" class="form-control col-sm-4"   formControlName="name" name="name"  required>
+                    
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="col-sm-2">Email: </label>  
+                    <input id="textInp" class="form-control col-sm-4" formControlName="email"  name="email"  required>
+                </div>
+                <div class="form-group row">
+                    <label for="department" class="col-sm-2">Department: </label>  
+                    <input id="textInp" class="form-control col-sm-4"   formControlName="department" name="department"  required>
+                </div>
+                <br>
+                <div class="form-group row">
+                    <label for="dob" class="col-sm-2">Joining Date:  </label> &nbsp;&nbsp;
+                    <input class="col-sm-2" type="date" name="dob" formControlName="joiningDate">  
+                </div>
+                <div class="form-group row">
+                    <label for="image1" class="col-sm-2">Image 1: </label>
+                    <input type="file" name="image1" accept="image/*" id="image1" formControlName="image1">
+                </div>
+                <div class="form-group row">
+                    <label for="image2" class="col-sm-2">Image 2: </label>
+                    <input type="file" name="image2" accept="image/*" id="image2" formControlName="image2" >
+                </div>
+                <div class="form-group row">
+                    <label for="image3" class="col-sm-2">Image 3: </label>
+                    <input type="file" name="image3" accept="image/*" id="image3" formControlName="image3">
+                </div>
+            
+                
+                <div class="d-flex flex-row justify-content-center col-sm-6">
+                    <button class="btn btn-outline-dark" type="submit">Send</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<hr>
+<div class="">
+    <label for="typeahead-config">Search for an Employee:</label>
+    <input id="typeahead-config" type="text" class="form-control" (keyup.enter)="changeImage($event)" [ngModel]="model" [ngbTypeahead]="search" />
+</div>
+<div [ngClass]="{nodisp:!showButton}" class="d-flex justify-content-center">
+    <ngb-carousel *ngIf="images">
+        <ng-template ngbSlide>
+            <div [ngClass]="{nodisp:!showButton}" class="picsum-img-wrapper">
+                <img width="240" [src]="images[0]" alt="Random first slide">
+            </div>
+            <div class="carousel-caption">
+                <h3>Image 1</h3>
+            </div>
+        </ng-template>
+        <ng-template ngbSlide>
+            <div class="picsum-img-wrapper">
+                <img [ngClass]="{nodisp:!showButton}" width="240" [src]="images[1]" alt="Random second slide">
+            </div>
+            <div class="carousel-caption">
+                <h3>Image 2</h3>
+            </div>
+        </ng-template>
+        <ng-template ngbSlide>
+            <div class="picsum-img-wrapper">
+                <img [ngClass]="{nodisp:!showButton}" width="240" [src]="images[2]" alt="Random third slide">
+            </div>
+            <div class="carousel-caption">
+                <h3>Image 3</h3>
+
+            </div>
+        </ng-template>
+    </ngb-carousel>
+</div>
+<hr>
+<ng-template #content let-modal>
+    <ngb-accordion #acc="ngbAccordion" activeIds="ngb-panel-0">
+        <ngb-panel title="Name">
+          <ng-template ngbPanelContent>
+            {{refObj.name}}
+          </ng-template>
+        </ngb-panel>
+        <ngb-panel title="E-mail">
+          <ng-template ngbPanelContent>
+            {{refObj.email}}
+          </ng-template>
+        </ngb-panel>
+        <ngb-panel title="Joining Date">
+          <ng-template ngbPanelContent>
+            {{refObj.joinedAt}}
+          </ng-template>
+        </ngb-panel>
+        <ngb-panel title="Department">
+          <ng-template ngbPanelContent>
+            {{refObj.deptId}}
+          </ng-template>
+        </ngb-panel>
+    </ngb-accordion>
+</ng-template>
+<div class="d-flex justify-content-end" style="height: 100px;">
+    <button class="btn btn-outline-primary align-self-start mr-2" placement="left"  ngbPopover="click to know more about the employee"   popoverClass="my-custom-class"   [openDelay]="1000" [closeDelay]="200" triggers="mouseenter:mouseleave" popoverTitle="Know More" [ngClass]="{nodisp:!showButton}" (click)= "openLg(content)">Know More..</button>
+</div>
